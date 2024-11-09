@@ -10,24 +10,25 @@ app = Flask(__name__)
 
 @app.route('/send_emails', methods=['POST'])
 def send_emails():
-    # Load email addresses from the specified Excel file
+    # Load email addresses and company names from the specified Excel file
     df = pd.read_excel(EXCEL_FILE_PATH)
     email_list = df['Email'].tolist()  # Assuming the column is named 'Email'
+    company_list = df['Company Name'].tolist()  # Assuming the column is named 'Company Name'
 
     # Set up the SMTP server
     with smtplib.SMTP(EMAIL_HOST, EMAIL_PORT) as server:
         server.starttls()
         server.login(EMAIL_USER, EMAIL_PASSWORD)
 
-        for email in email_list:
+        for email, company_name in zip(email_list, company_list):  # Iterate over both lists
             # Create a multipart email
             msg = MIMEMultipart()
             msg['Subject'] = EMAIL_SUBJECT
             msg['From'] = EMAIL_USER
             msg['To'] = email
             
-            # Attach the email body
-            body = EMAIL_BODY.format(linkedin_url=LINKEDIN_URL)
+            # Attach the email body with the specific company name
+            body = EMAIL_BODY.format(linkedin_url=LINKEDIN_URL, company_name=company_name)  # Updated to include company_name
             msg.attach(MIMEText(body, 'plain'))
 
             # Attach the resume
