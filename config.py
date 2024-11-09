@@ -10,7 +10,7 @@ RESUME_PATH = 'path/to/resume'  # Path to your resume file
 EMAIL_BODY = '''\
 Hello,
 
-I hope this message finds you well. My name is [Your Name], and I am currently seeking job opportunities as a [Position] at [Company Name]. I am very interested in the work your company is doing and believe my skills and experiences align well with your team.
+I hope this message finds you well. My name is [Your Name], and I am currently seeking job opportunities as a [Position] at {{company_name}}. I am very interested in the work your company is doing and believe my skills and experiences align well with your team.
 
 I have attached my resume for your review, and you can also view my LinkedIn profile here: {linkedin_url}. I would greatly appreciate any guidance or opportunities you might have available.
 
